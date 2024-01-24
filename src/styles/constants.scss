@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'PriceDown';
+    src: url(../../fonts/pricedown\ bl.otf);
+}
+
+$background: #F0F0F3;
+$accent-color: rgb(209, 82, 82);
+
+body {
+    background-color: $background;
+    font-family: PriceDown, sans-serif;
+    color: $accent-color;
+}
+
