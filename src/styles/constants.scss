@@ -5,6 +5,8 @@
 
 $background: #F0F0F3;
 $accent-color: rgb(209, 82, 82);
+$light-side: #fff;
+$dark-side: #76768740;
 
 body {
     background-color: $background;
@@ -12,3 +14,45 @@ body {
     color: $accent-color;
 }
 
+input {
+    outline: none;
+    border: 0;
+    border-bottom: 2px solid $accent-color;
+    background-color: transparent;
+
+    font-family: PriceDown, sans-serif;
+    font-size: 20px;
+    color: $accent-color;
+}
+
+.block {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+    border-radius: 40px;
+    box-shadow:
+            -10px -10px 20px $light-side,
+            10px 10px 20px $dark-side;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    transition: box-shadow .3s;
+}
+
+.btn {
+    box-shadow:
+            -5px -5px 10px $light-side,
+            5px 5px 10px $dark-side;
+    border-radius: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+    &:active {
+        box-shadow:
+            0px 0px 0px $light-side,
+            0px 0px 0px $dark-side;
+    }
+}
