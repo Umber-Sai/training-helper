@@ -22,7 +22,7 @@
                 labelElement.className = (i === 0? "weight" : "repeats");
 
                 const inputElement = document.createElement('input');
-                inputElement.setAttribute('type', 'text');
+                inputElement.setAttribute('type', 'number');
                 i === 0 ? this.weigntValidation(inputElement) : this.repValidation(inputElement);
                 this.inputElements.push(inputElement);
 
