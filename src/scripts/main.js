@@ -171,34 +171,53 @@
         if(!name) return 
         const lastXrcsBlock = xrcsList[xrcsList.length - 1];
         if(lastXrcsBlock) {
-            let result = {
-                name : lastXrcsBlock.name,
-                setsVal : []
-            }
-            lastXrcsBlock.element.inputsElements.forEach(item => {
-                if(!item[0].value || !item[1].value) return
-                result.setsVal.push({
-                    weight : item[0].value,
-                    rep : item[1].value
-                });
-            });
-            if (result.setsVal.length === 0) {
-                lastXrcsBlock.element.xrcsBlockElement.classList.add('remove')
-                setTimeout(() => {
-                    document.getElementById('exercises').removeChild(lastXrcsBlock.element.xrcsBlockElement);
-                    xrcsList.remove(lastXrcsBlock)
-                }, 3000)
-            } else {
-                lastXrcsBlock.element.close(result);
-                lastXrcsBlock.result = result
-                console.log(xrcsList)
-            }
+            resultCompil(lastXrcsBlock)
         }
-
-
-        
-        
         newXrcs = new NewExercise(name);
         xrcsList.push({name : name, element : newXrcs});
+    });
+
+    function resultCompil (lastXrcsBlock) {
+        let result = {
+            name : lastXrcsBlock.name,
+            setsVal : []
+        }
+        lastXrcsBlock.element.inputsElements.forEach(item => {
+            if(!item[0].value || !item[1].value) return
+            result.setsVal.push({
+                weight : item[0].value,
+                rep : item[1].value
+            });
+        });
+        if (result.setsVal.length === 0) {
+            lastXrcsBlock.element.xrcsBlockElement.classList.add('remove')
+            setTimeout(() => {
+                document.getElementById('exercises').removeChild(lastXrcsBlock.element.xrcsBlockElement);
+                xrcsList.remove(lastXrcsBlock)
+            }, 3000)
+        } else {
+            lastXrcsBlock.element.close(result);
+            lastXrcsBlock.result = result
+            console.log(xrcsList)
+        }
+    }
+
+
+    $('#finish').click(() => {
+        const lastXrcsBlock = xrcsList[xrcsList.length - 1];
+        if(lastXrcsBlock) {
+            resultCompil(lastXrcsBlock)
+        }
+        let toLocalStorage = [];
+        xrcsList.forEach(item => {
+            toLocalStorage.push({
+                date : new Date(),
+                name : item.name,
+                setsVal : item.result.setsVal
+            });
+            document.getElementById('exercises').removeChild(item.element.xrcsBlockElement);
+        });
+        console.log(toLocalStorage)
+        localStorage.setItem('training', JSON.stringify(toLocalStorage));
     })
 })();
