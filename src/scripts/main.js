@@ -1,12 +1,13 @@
 (function () {
+
     class NewSet {
-        constructor (motherBlock) {
+        constructor (motherElement) {
             this.setBlockElement = null;
             this.setButtonElement = null;
             this.inputElements = [];
-            this.motherBlock = motherBlock;
+            this.motherElement = motherElement;
             this.createSetBlock();
-            return this.setBlockElement;
+            return [this.setBlockElement, this.inputElements];
         }
         createSetBlock () {
             const that = this;
@@ -88,7 +89,7 @@
                     this.addEventListener('click', submit);
                 }
                 
-                that.motherBlock.appendChild(new NewSet(that.motherBlock));
+                that.motherElement.createSetElement()
                 edit.call(this);
             });
         } 
@@ -97,45 +98,34 @@
 
 
 
-    const NewExercise = {
-        xrcsName : null,
-        xrcsBlockElement : null,
+    class NewExercise {
+        constructor (name) {
+            this.xrcsName = name;
+            this.xrcsBlockElement = null;
+            this.xrcsInfoLastTraining = null;
+            this.xrcsSetsElement = null;
+            this.inputsElements = []
+            this.init()
+        }
         init() {
-            this.xrcsName = document.getElementById('xrcsName').value;
             this.createBlock();
-            
-            
-            
-        },
-
-
+            this.showBlock()
+        }
         createBlock () {
-            const motherBlockElement = document.getElementById('exercises');
-
             this.xrcsBlockElement = document.createElement('div');
             this.xrcsBlockElement.className = 'block exercise'
             
-            const xrcsInfoElement = this.createInfoElemet();
+            const xrcsInfoElement = this.createInfoElement();
             this.xrcsBlockElement.appendChild(xrcsInfoElement);
             
-            motherBlockElement.appendChild(this.xrcsBlockElement)
+            this.xrcsSetsElement = document.createElement('div');
+            this.xrcsSetsElement.className = 'exercise__sets';
+            this.xrcsBlockElement.appendChild(this.xrcsSetsElement);
 
-            this.createSetsElement();
-        },
-
-
-        createSetsElement () {
-            const xrcsSetsElement = document.createElement('div');
-            xrcsSetsElement.className = 'exercise__sets'
-
-            const xrcsSetElement = new NewSet(xrcsSetsElement);
-            xrcsSetsElement.appendChild(xrcsSetElement)
-
-            this.xrcsBlockElement.appendChild(xrcsSetsElement)
-        },
-
-
-        createInfoElemet () {
+            this.createSetElement();
+            
+        }
+        createInfoElement () {
             const xrcsInfoElement = document.createElement('div');
             xrcsInfoElement.className = 'exercies__info';
 
@@ -144,19 +134,71 @@
             xrcsInfoNameElement.innerText = this.xrcsName + ':';
 
             //create "last_training"
+            this.xrcsInfoLastTraining = document.createElement('div');
+            this.xrcsInfoLastTraining.className = 'last_training';
 
             xrcsInfoElement.appendChild(xrcsInfoNameElement);
+            xrcsInfoElement.appendChild(this.xrcsInfoLastTraining);
             return xrcsInfoElement;
-
-        },
+        }
+        createSetElement () {
+            const [xrcsSetElement, inputElemets] = new NewSet(this);
+            this.inputsElements.push(inputElemets);
+            this.xrcsSetsElement.appendChild(xrcsSetElement);
+        }
         showBlock () {
+            const motherBlockElement = document.getElementById('exercises');
+            motherBlockElement.appendChild(this.xrcsBlockElement)
+            
+        }
+        close(result) {
+            this.xrcsInfoLastTraining.innerHTML = '';
+            result.setsVal.forEach( set => {
+                const row = document.createElement('div');
+                const text = `${set.weight} kg/${set.rep} repearts`;
+                row.innerText = text;
+                this.xrcsInfoLastTraining.appendChild(row);
+            })
+            this.xrcsBlockElement.removeChild(this.xrcsSetsElement)
         }
     }
 
+    let xrcsList = []
+    
     $('#add-exercise').click(() => {
-        if($('#xrcsName').val()) {
-
-            NewExercise.init()
+        const name = $('#xrcsName').val()
+        $('#xrcsName').val('')
+        if(!name) return 
+        const lastXrcsBlock = xrcsList[xrcsList.length - 1];
+        if(lastXrcsBlock) {
+            let result = {
+                name : lastXrcsBlock.name,
+                setsVal : []
+            }
+            lastXrcsBlock.element.inputsElements.forEach(item => {
+                if(!item[0].value || !item[1].value) return
+                result.setsVal.push({
+                    weight : item[0].value,
+                    rep : item[1].value
+                });
+            });
+            if (result.setsVal.length === 0) {
+                lastXrcsBlock.element.xrcsBlockElement.classList.add('remove')
+                setTimeout(() => {
+                    document.getElementById('exercises').removeChild(lastXrcsBlock.element.xrcsBlockElement);
+                    xrcsList.remove(lastXrcsBlock)
+                }, 3000)
+            } else {
+                lastXrcsBlock.element.close(result);
+                lastXrcsBlock.result = result
+                console.log(xrcsList)
+            }
         }
+
+
+        
+        
+        newXrcs = new NewExercise(name);
+        xrcsList.push({name : name, element : newXrcs});
     })
 })();
