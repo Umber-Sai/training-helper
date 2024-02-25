@@ -1,0 +1,151 @@
+@font-face {
+  font-family: "PriceDown";
+  src: url(../fonts/pricedown\ bl.otf);
+}
+body {
+  background-color: #F0F0F3;
+  font-family: PriceDown, sans-serif;
+  color: rgb(209, 82, 82);
+}
+
+input {
+  outline: none;
+  border: 0;
+  border-bottom: 2px solid rgb(209, 82, 82);
+  background-color: transparent;
+  font-family: PriceDown, sans-serif;
+  font-size: 20px;
+  color: rgb(209, 82, 82);
+}
+
+.block {
+  width: 100%;
+  padding: 25px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 40px;
+  -webkit-box-shadow: -10px -10px 20px #fff, 10px 10px 20px rgba(118, 118, 135, 0.2509803922);
+          box-shadow: -10px -10px 20px #fff, 10px 10px 20px rgba(118, 118, 135, 0.2509803922);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px 0;
+  -webkit-transition: -webkit-box-shadow 1s ease-out;
+  transition: -webkit-box-shadow 1s ease-out;
+  transition: box-shadow 1s ease-out;
+  transition: box-shadow 1s ease-out, -webkit-box-shadow 1s ease-out;
+}
+.block.remove {
+  -webkit-box-shadow: 0px 0px 0px #fff, 0px 0px 0px rgba(118, 118, 135, 0.2509803922);
+          box-shadow: 0px 0px 0px #fff, 0px 0px 0px rgba(118, 118, 135, 0.2509803922);
+}
+
+.btn {
+  -webkit-box-shadow: -5px -5px 10px #fff, 5px 5px 10px rgba(118, 118, 135, 0.2509803922);
+          box-shadow: -5px -5px 10px #fff, 5px 5px 10px rgba(118, 118, 135, 0.2509803922);
+  border-radius: 15px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.btn:active {
+  -webkit-box-shadow: 0px 0px 0px #fff, 0px 0px 0px rgba(118, 118, 135, 0.2509803922);
+          box-shadow: 0px 0px 0px #fff, 0px 0px 0px rgba(118, 118, 135, 0.2509803922);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  max-width: 400px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.block.date {
+  font-size: 32px;
+}
+
+.exercise .exercise__info {
+  width: 100%;
+}
+.exercise .exercise__info .name {
+  font-size: 25px;
+  text-align: left;
+}
+.exercise .exercise__info .last_training {
+  margin: 10px 0 10px 20px;
+}
+.exercise .exercise__sets {
+  width: 100%;
+}
+.exercise .exercise__sets .set {
+  display: grid;
+  grid-template-columns: minmax(10px, 40px) repeat(2, -webkit-max-content) 60px;
+  grid-template-columns: minmax(10px, 40px) repeat(2, max-content) 60px;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+.exercise .exercise__sets .set .set-point {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(209, 82, 82);
+  border-radius: 50%;
+  justify-self: center;
+}
+.exercise .exercise__sets .set label input {
+  width: 40px;
+  text-align: center;
+}
+.exercise .exercise__sets .set label input:disabled {
+  opacity: 50%;
+}
+.exercise .exercise__sets .set label.weight input {
+  width: 60px;
+}
+.exercise .exercise__sets .set .btn {
+  max-width: 60px;
+}
+
+.add_exercise {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 30%;
+  gap: 15px;
+}
+.add_exercise input {
+  margin-left: 11px;
+  min-width: 0;
+  height: 35px;
+  padding: 0 10px;
+}
+.add_exercise .add_xrcs {
+  max-width: 100px;
+}
+/*# sourceMappingURL=../sourcemaps/style.css.map */

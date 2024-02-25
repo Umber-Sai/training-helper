@@ -1,0 +1,1 @@
+class Exercise{constructor(c){this.name=c,this.xrcsBlock=document.createElement("div"),this.xrcsBlock.className="block"}}export{Exercise};

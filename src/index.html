@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrainerApp</title>
-    <link rel="stylesheet" href="dist/styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
     <div class="container">
-        <div class="block date">
+        <div class="block date" id="date">
             23/01/2023
         </div>
     </div>
@@ -19,9 +19,9 @@
 
 
     <div class="container">
-        <div class="block add_esercise">
-            <input id="xrcsName" type="text">
-            <div class="btn add_exercise" id="add-exercise">+</div>
+        <div class="block add_exercise">
+            <input id="xrcsName" type="text" value="bench press">
+            <div class="btn add_xrcs" id="add-exercise">+</div>
         </div>
     </div>
 
@@ -30,8 +30,6 @@
     </div>
 
   
-    </script>
-    <script src="dist/scripts/nodeScripts.js"></script>
-    <script src="dist/scripts/scripts.min.js"></script>
+    <script src="./app.js" type="module"></script>
 </body>
 </html>

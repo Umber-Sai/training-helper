@@ -16,7 +16,7 @@
 }
 
 .exercise {
-    .exercies__info {
+    .exercise__info {
         width: 100%;
         .name {
             font-size: 25px;
@@ -28,7 +28,7 @@
     }
     .exercise__sets {
         width: 100%;
-        .new_set {
+        .set {
             display: grid;
             grid-template-columns: minmax(10px, 40px) repeat(2,  max-content) 60px;
             column-gap: 10px;
@@ -62,7 +62,7 @@
     }
 }
 
-.add_esercise {
+.add_exercise {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 30%;
@@ -76,7 +76,7 @@
         padding: 0 10px;
         
     }
-    .add_exercise {
+    .add_xrcs {
         max-width: 100px;
     }
     
