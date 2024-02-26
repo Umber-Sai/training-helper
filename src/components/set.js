@@ -1,4 +1,4 @@
-import { CheckPoint } from "../utils/saveToSessionStorage.js";
+
 
 export class Set {
     constructor (motherElement, selfId) {
@@ -8,7 +8,25 @@ export class Set {
         this.inputRepeats = null;
         this.inputWeight = null;
         this.button = null;
-        this.checkPoint = null;
+    }
+
+    async createElement () {
+        await this.getTemplate();
+
+        const that = this;
+        this.button.addEventListener('click', function add () {
+            that.motherElement.saveCurrentXrcs();
+            this.removeEventListener('click', add);
+            that.motherElement.addSet();
+            this.innerText = 'edit';
+
+            that.inputRepeats.setAttribute('disabled', 'disabled');
+            that.inputWeight.setAttribute('disabled', 'disabled');
+
+            that.btnProcces();
+        });
+        
+        return this.element;
     }
 
     async getTemplate() {
@@ -35,19 +53,7 @@ export class Set {
         this.inputWeight = inputWeight;
         this.button = button;
 
-        const that = this;
-        this.button.addEventListener('click', function add () {
-            this.removeEventListener('click', add);
-            that.motherElement.addSet();
-            this.innerText = 'edit';
-
-            that.inputRepeats.setAttribute('disabled', 'disabled');
-            that.inputWeight.setAttribute('disabled', 'disabled');
-
-            that.btnProcces();
-        });
-        
-        return template;
+        this.validation()
     }
 
     btnProcces() {
@@ -65,8 +71,9 @@ export class Set {
         }
 
         function submit () {
-            console.log(sessionStorage);
             this.innerText = 'edit';
+            console.log(that)
+            that.motherElement.saveCurrentXrcs();
             that.inputRepeats.setAttribute('disabled', 'disabled');
             that.inputWeight.setAttribute('disabled', 'disabled');
             
@@ -76,26 +83,34 @@ export class Set {
         }
     }
 
+    async restoreSet (setVal) {
+        console.log(setVal)
+
+        await this.getTemplate();
+
+        this.button.innerText = 'edit'
+        this.inputRepeats.value = setVal.repeats;
+        this.inputWeight.value = setVal.weight;
+        this.inputRepeats.setAttribute('disabled', 'disabled');
+        this.inputWeight.setAttribute('disabled', 'disabled');
+
+        this.btnProcces();
+
+        return this.element;
+    }
+
+    validation () {
+
+        this.inputRepeats.addEventListener('input', (event) => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
+        this.inputWeight.addEventListener('input', (event) => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
+    }
+
 }
 
 
-
-let SSExample = [
-    {
-        name : 'banch press',
-        sets : [
-            {
-                weight : 10,
-                repeats : 15
-            },
-            {
-                weight : 10,
-                repeats : 15
-            },
-            {
-                weight : 10,
-                repeats : 15
-            }
-        ]
-    }
-]
