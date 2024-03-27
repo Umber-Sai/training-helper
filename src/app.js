@@ -26,8 +26,6 @@ class App {
         return date
     }
 
-
-    //rebuild
     addExerciseProcess () {
         const nameExrcs = document.getElementById('xrcsName').value;
         if (nameExrcs) {

@@ -15,6 +15,7 @@ export class Set {
 
         const that = this;
         this.button.addEventListener('click', function add () {
+            if (!that.inputRepeats.value && !that.inputRepeats.value) return;
             that.motherElement.saveCurrentXrcs();
             this.removeEventListener('click', add);
             that.motherElement.addSet();
@@ -53,7 +54,17 @@ export class Set {
         this.inputWeight = inputWeight;
         this.button = button;
 
-        this.validation()
+        this.validation();
+    }
+
+    validation () {
+        this.inputRepeats.addEventListener('input', (event) => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
+        this.inputWeight.addEventListener('input', (event) => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
     }
 
     btnProcces() {
@@ -99,17 +110,7 @@ export class Set {
         return this.element;
     }
 
-    validation () {
-
-        this.inputRepeats.addEventListener('input', (event) => {
-            event.target.value = event.target.value.replace(/\D/g, '');
-        });
-
-        this.inputWeight.addEventListener('input', (event) => {
-            event.target.value = event.target.value.replace(/\D/g, '');
-        });
-
-    }
+ 
 
 }
 
